@@ -33,6 +33,11 @@ const legacyMarkup = String.raw`
           <div><p class="section-kicker">BALCONY PROFILE</p><h2>Meet your balcony</h2></div>
           <p>A few details help us recommend plants that fit your light, space, and routine.</p>
         </div>
+        <section class="balcony-scan-card" aria-labelledby="balconyScanTitle">
+          <div class="scan-copy"><p class="section-kicker">AI-READY BALCONY SCAN</p><h3 id="balconyScanTitle">Show us your space</h3><p>Upload one balcony photo and we’ll turn what we can see into a clearer light, layout, and wind profile. You’ll still confirm the details before they shape recommendations.</p><label class="upload-control" for="balconyPhoto"><span>＋</span><b>Choose a balcony photo</b><small>JPG, PNG, or WEBP · up to 8 MB</small></label><input id="balconyPhoto" type="file" accept="image/jpeg,image/png,image/webp" hidden /><button class="button button-secondary scan-button" id="scanBalcony" type="button" disabled>Analyze balcony <span>✦</span></button></div>
+          <div class="scan-preview" id="balconyPreview"><span class="scan-placeholder">⌁</span><small>Your photo preview appears here</small></div>
+          <div class="scan-result" id="balconyResult" aria-live="polite" hidden></div>
+        </section>
         <form id="profileForm" class="profile-grid">
           <label class="field field-wide">City
             <input id="city" name="city" type="text" placeholder="e.g. Bengaluru" autocomplete="address-level2" required />
