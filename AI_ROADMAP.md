@@ -15,3 +15,5 @@ The deterministic plant dataset and survival rules remain the source of truth. G
 ## Environment
 
 Keep `GEMINI_API_KEY` in `.env` for server-side use. Do not rename it to `VITE_GEMINI_API_KEY`; Vite exposes `VITE_*` values to the browser.
+
+The balcony analysis integration is pinned to `gemini-flash-latest` at the `v1beta/models/{model}:generateContent` endpoint.
