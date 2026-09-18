@@ -54,3 +54,4 @@ $$('.foster-option').forEach(b=>b.addEventListener('click',()=>{$$('.foster-opti
 $('#copyPassport').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(passportText());$('#copyStatus').textContent='Copied to clipboard';toast('Care brief copied')}catch{$('#copyStatus').textContent='Select and copy the passport text manually.'}});
 $('#demoButton').addEventListener('click',loadDemo);$('#startOver').addEventListener('click',()=>{localStorage.removeItem('plantstay-state');location.reload()});
 try{const saved=JSON.parse(localStorage.getItem('plantstay-state'));if(saved)Object.assign(state,saved)}catch{}if(!state.user)state.user=makeGuest();$('#anonymousChip').textContent=`Guest gardener · #${state.user.id}`;hydrate();renderPlants();showStep(state.step||1);if(state.step===4&&state.duration&&state.selected.length)buildResults();
+

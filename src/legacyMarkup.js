@@ -1,0 +1,117 @@
+const legacyMarkup = String.raw`
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="PlantStay home">
+      <span class="brand-mark" aria-hidden="true">⌁</span>
+      <span>PlantStay</span>
+    </a>
+    <div class="top-actions">
+      <span class="anonymous-chip" id="anonymousChip">Guest gardener</span>
+      <button class="button button-secondary garden-shortcut" id="gardenShortcut" type="button">My Garden <b id="headerGardenCount">0</b></button>
+      <button class="button button-secondary" id="demoButton" type="button">Load demo trip</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="intro shell">
+      <div>
+        <p class="eyebrow">TRAVEL CARE PLANNER</p>
+        <h1>Leave town.<br><span>Keep every leaf happy.</span></h1>
+      </div>
+      <p class="intro-copy">Build your balcony profile, choose your plants, and get a clear care plan for the days you’re away.</p>
+    </section>
+
+    <div class="shell workspace">
+      <nav class="stepper" aria-label="Planner sections">
+        <button class="step active" data-step="1"><span>⌂</span><b>Profile</b></button>
+        <button class="step" data-step="2"><span>♧</span><b>Plants & Garden</b></button>
+        <button class="step" data-step="3"><span>✈</span><b>Trips</b></button>
+        <button class="step" data-step="4"><span>✓</span><b>Care plan</b></button>
+      </nav>
+
+      <section class="panel active" data-panel="1">
+        <div class="panel-heading">
+          <div><p class="section-kicker">BALCONY PROFILE</p><h2>Meet your balcony</h2></div>
+          <p>A few details help us recommend plants that fit your light, space, and routine.</p>
+        </div>
+        <form id="profileForm" class="profile-grid">
+          <label class="field field-wide">City
+            <input id="city" name="city" type="text" placeholder="e.g. Bengaluru" autocomplete="address-level2" required />
+            <small class="field-error">Add your city to continue.</small>
+          </label>
+          <fieldset class="field field-wide"><legend>Balcony direction</legend><div class="choice-row" id="directionChoices">
+            <label><input type="radio" name="direction" value="North"><span>North</span></label>
+            <label><input type="radio" name="direction" value="East" checked><span>East</span></label>
+            <label><input type="radio" name="direction" value="South"><span>South</span></label>
+            <label><input type="radio" name="direction" value="West"><span>West</span></label>
+          </div></fieldset>
+          <label class="field">Daily sunlight
+            <select id="sunlight"><option value="low">Mostly shade · 1–2 hrs</option><option value="medium" selected>Gentle sun · 3–5 hrs</option><option value="high">Bright sun · 6+ hrs</option></select>
+          </label>
+          <label class="field">Balcony size
+            <select id="size"><option value="compact">Compact · under 40 sq ft</option><option value="medium" selected>Medium · 40–100 sq ft</option><option value="large">Roomy · 100+ sq ft</option></select>
+          </label>
+          <label class="field">Wind exposure
+            <select id="wind"><option value="sheltered">Sheltered</option><option value="moderate" selected>Some breeze</option><option value="windy">Strong / frequent wind</option></select>
+          </label>
+          <label class="field">Maintenance style
+            <select id="maintenance"><option value="low">Keep it easy</option><option value="medium" selected>A little weekly care</option><option value="high">Happy to fuss over plants</option></select>
+          </label>
+          <div class="form-actions field-wide"><span>Your profile stays in this browser.</span><button class="button button-primary" type="submit">Find my plants <span>→</span></button></div>
+        </form>
+      </section>
+
+      <section class="panel" data-panel="2">
+        <div class="panel-heading plants-heading">
+          <div><p class="section-kicker">PLANT LIBRARY</p><h2>Explore plants & your garden</h2></div>
+          <div class="garden-tools"><div class="garden-count"><span id="selectedCount">0</span><small>in my garden</small></div><button class="clear-garden" id="clearGarden" type="button" hidden>Clear garden</button></div>
+        </div>
+        <div id="recommendations" class="plant-grid"></div>
+        <button class="explore-toggle" id="exploreToggle" type="button">Explore all 17 plants ↓</button>
+        <div id="gardenEmpty" class="empty-state"><span>↳</span><div><b>Your garden is empty</b><p>Add at least one plant to make a travel plan.</p></div></div>
+        <div class="panel-footer"><button class="button button-ghost" data-menu="1">Edit profile</button><button class="button button-primary" id="gardenNext" disabled>Plan a trip <span>→</span></button></div>
+      </section>
+
+      <section class="panel" data-panel="3">
+        <div class="panel-heading">
+          <div><p class="section-kicker">TRIP PLANNER</p><h2>When will you be away?</h2></div>
+          <p>We count full calendar days and build care around each plant’s watering rhythm.</p>
+        </div>
+        <div id="tripPrereq" class="empty-state prerequisite" hidden><span>!</span><div><b>Add a plant before planning a trip</b><p>Open My Garden, choose at least one plant, then return here.</p></div><button class="button button-secondary" type="button" data-menu="2">Open My Garden</button></div>
+        <div class="trip-layout">
+          <form id="tripForm" class="trip-card">
+            <label class="field">Leave on<input id="departure" type="date" required></label>
+            <div class="trip-line" aria-hidden="true"><span></span><i>✈</i><span></span></div>
+            <label class="field">Return on<input id="returnDate" type="date" required></label>
+            <p class="date-error" id="dateError" role="alert"></p>
+            <div class="duration-readout"><span id="durationValue">—</span><div><b>days away</b><small id="durationNote">Choose both dates</small></div></div>
+            <button class="button button-primary button-full" id="buildPlanButton" type="submit">Build my care plan <span>→</span></button>
+          </form>
+          <aside class="trip-garden"><p class="section-kicker">TRAVELLING GARDEN</p><div id="tripPlants"></div><div class="trip-tip"><b>Small prep, big difference.</b><p>A deep water and a shadier spot can safely add a couple of unattended days for many plants.</p></div></aside>
+        </div>
+        <div class="panel-footer"><button class="button button-ghost" data-menu="2">Open My Garden</button></div>
+      </section>
+
+      <section class="panel" data-panel="4">
+        <div id="carePlanEmpty" class="empty-state care-plan-empty"><span>✦</span><div><b>No care plan yet</b><p>Choose plants and add travel dates to generate your first plan.</p></div><button class="button button-primary" type="button" data-menu="3">Plan a trip</button></div>
+        <div class="results-header">
+          <div><p class="section-kicker">CARE PLAN</p><h2>Your garden has a plan.</h2><p id="tripSummary"></p></div>
+          <div class="readiness"><span id="readinessScore">0%</span><small>trip ready</small></div>
+        </div>
+        <div id="assessmentSummary" class="summary-strip"></div>
+        <section class="result-section"><div class="section-title-row"><div><p class="section-kicker">SURVIVAL ASSESSMENT</p><h3>Who needs what?</h3></div><span class="rule-note">Based on watering cadence + prep buffer</span></div><div id="assessments" class="assessment-list"></div></section>
+        <section class="result-section timeline-section"><div class="section-title-row"><div><p class="section-kicker">CARE TIMELINE</p><h3>What happens when</h3></div></div><div id="timeline" class="timeline"></div></section>
+        <section class="result-section passport-section">
+          <div class="passport-copy"><p class="section-kicker">PLANT PASSPORT</p><h3>A simple brief for your helper</h3><p>Only the essentials: where the plants are, when to visit, and what to do.</p><button id="copyPassport" class="button button-dark">Copy care brief <span>↗</span></button><span id="copyStatus" class="copy-status" aria-live="polite"></span></div>
+          <div class="passport" id="passport"><div class="passport-top"><span>PLANTSTAY / CARE PASS</span><span id="passportDates"></span></div><h4 id="passportTitle"></h4><div id="passportBody"></div><p class="passport-footer">Thank you for keeping the little jungle alive ♡</p></div>
+        </section>
+        <section class="foster-card"><div class="foster-intro"><span class="foster-icon">⌂</span><div><p class="section-kicker">NEED A HAND?</p><h3>Choose a care arrangement</h3><p>This is a planning aid—not a sitter marketplace. Share your passport with someone you trust.</p></div></div><div class="foster-options"><button class="foster-option active" data-foster="Home visit"><span>01</span><div><b>Trusted home visit</b><small>Best when moving pots is difficult</small></div><i>✓</i></button><button class="foster-option" data-foster="Temporary boarding"><span>02</span><div><b>Temporary plant boarding</b><small>Best for a small, portable garden</small></div><i>✓</i></button></div></section>
+        <div class="panel-footer final-footer"><button class="button button-ghost" data-menu="3">Change trip dates</button><button class="button button-secondary" id="startOver">Reset guest profile</button></div>
+      </section>
+    </div>
+  </main>
+  <footer><span>PlantStay</span><p>Calm trips. Happier homecomings.</p><small>Built for planning—not professional horticultural advice.</small></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+
+`;
+export default legacyMarkup;
