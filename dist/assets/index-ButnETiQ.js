@@ -78,8 +78,8 @@ Error generating stack: `+o.message+`
           <div class="scan-result" id="balconyResult" aria-live="polite" hidden></div>
         </section>
         <form id="profileForm" class="profile-grid">
-          <label class="field field-wide">City
-            <input id="city" name="city" type="text" placeholder="e.g. Bengaluru" autocomplete="address-level2" required />
+          <label class="field field-wide">Location
+            <select id="city" name="city" required><option value="" selected disabled>Choose your city</option><option value="Bengaluru">Bengaluru</option><option value="Mumbai">Mumbai</option><option value="Delhi">Delhi</option><option value="Hyderabad">Hyderabad</option><option value="Chennai">Chennai</option><option value="Pune">Pune</option><option value="Kolkata">Kolkata</option><option value="Jaipur">Jaipur</option><option value="Goa">Goa</option><option value="Ahmedabad">Ahmedabad</option></select>
             <small class="field-error">Add your city to continue.</small>
           </label>
           <fieldset class="field field-wide"><legend>Balcony direction</legend><div class="choice-row" id="directionChoices">
