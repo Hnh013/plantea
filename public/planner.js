@@ -19,6 +19,7 @@ const PLANTS=[
 ];
 const state={step:1,profile:{},selected:[],departure:'',returnDate:'',duration:0,assessment:[],foster:'Home visit',showAll:false,user:null};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function applyTheme(theme){const dark=theme==='dark';document.documentElement.dataset.theme=dark?'dark':'light';$('#themeToggle').setAttribute('aria-pressed',String(dark));$('#themeToggle').setAttribute('aria-label',`Switch to ${dark?'light':'dark'} mode`);$('#themeToggle').innerHTML=`<span aria-hidden="true">${dark?'☀':'☾'}</span><b>${dark?'Light':'Dark'}</b>`;localStorage.setItem('plantstay-theme',dark?'dark':'light')}
 function save(){localStorage.setItem('plantstay-state',JSON.stringify(state))}
 function makeGuest(){const id=(globalThis.crypto?.randomUUID?.()||Math.random().toString(36).slice(2)).replaceAll('-','').slice(0,6).toUpperCase();return{id,createdAt:new Date().toISOString()}}
 function showStep(n){state.step=n;const hasPlan=state.assessment.length>0&&state.duration>0;$$('.panel').forEach(p=>p.classList.toggle('active',+p.dataset.panel===n));$$('.step').forEach(s=>s.classList.toggle('active',+s.dataset.step===n));$('[data-panel="4"]').classList.toggle('needs-plan',!hasPlan);$('#carePlanEmpty').hidden=hasPlan;updateGardenUI();save();scrollTo({top:$('.workspace').offsetTop-90,behavior:'smooth'})}
@@ -63,9 +64,10 @@ $('#tripForm').addEventListener('submit',e=>{e.preventDefault();if(!state.select
 $$('.step,[data-menu]').forEach(b=>b.addEventListener('click',()=>showStep(+(b.dataset.step||b.dataset.menu))));
 $('#gardenShortcut').addEventListener('click',()=>showStep(2));
 $('#sosShortcut').addEventListener('click',()=>{showStep(1);setTimeout(()=>$('#sosTitle')?.scrollIntoView({behavior:'smooth',block:'center'}),80)});
+$('#themeToggle').addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
 $('#exploreToggle').addEventListener('click',()=>{state.showAll=!state.showAll;renderPlants();save()});
 $$('.foster-option').forEach(b=>b.addEventListener('click',()=>{$$('.foster-option').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.foster=b.dataset.foster;renderPassport();save()}));
 $('#copyPassport').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(passportText());$('#copyStatus').textContent='Copied to clipboard';toast('Care brief copied')}catch{$('#copyStatus').textContent='Select and copy the passport text manually.'}});
 $('#polishPassport').addEventListener('click',polishPassport);$$('[data-close-ai]').forEach(b=>b.addEventListener('click',closeAiOverlay));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#aiOverlay').hidden)closeAiOverlay()});
 $('#demoButton')?.addEventListener('click',loadDemo);$('#startOver').addEventListener('click',()=>{localStorage.removeItem('plantstay-state');location.reload()});
-try{const saved=JSON.parse(localStorage.getItem('plantstay-state'));if(saved)Object.assign(state,saved)}catch{}if(!state.user)state.user=makeGuest();$('#anonymousChip').textContent=`Guest gardener · #${state.user.id}`;hydrate();renderPlants();showStep(state.step||1);if(state.step===4&&state.duration&&state.selected.length)buildResults();
+try{const saved=JSON.parse(localStorage.getItem('plantstay-state'));if(saved)Object.assign(state,saved)}catch{}if(!state.user)state.user=makeGuest();applyTheme(localStorage.getItem('plantstay-theme')||'light');$('#anonymousChip').textContent=`Guest gardener · #${state.user.id}`;hydrate();renderPlants();showStep(state.step||1);if(state.step===4&&state.duration&&state.selected.length)buildResults();
