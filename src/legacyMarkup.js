@@ -38,6 +38,12 @@ const legacyMarkup = String.raw`
           <div class="scan-preview" id="balconyPreview"><span class="scan-placeholder">⌁</span><small>Your photo preview appears here</small></div>
           <div class="scan-result" id="balconyResult" aria-live="polite" hidden></div>
         </section>
+        <section class="sos-card" aria-labelledby="sosTitle">
+          <div class="sos-heading"><div><p class="section-kicker">PLANT SOS</p><h3 id="sosTitle">Something looks off?</h3><p>Upload a close-up of a struggling plant and add what you’ve noticed. We’ll return possible causes and gentle next steps.</p></div><span class="sos-mark">✦</span></div>
+          <div class="sos-form"><label class="upload-control" for="sosPhoto"><span>＋</span><b>Choose a plant photo</b><small>JPG, PNG, or WEBP · up to 8 MB</small></label><input id="sosPhoto" type="file" accept="image/jpeg,image/png,image/webp" hidden /><label class="field sos-notes">What have you noticed?<textarea id="sosNotes" rows="3" placeholder="e.g. leaves are drooping and the soil feels damp"></textarea></label><button class="button button-secondary" id="sosAnalyze" type="button" disabled>Run Plant SOS <span>✦</span></button></div>
+          <div class="sos-preview" id="sosPreview"><span class="scan-placeholder">♡</span><small>Plant photo preview</small></div>
+          <div class="scan-result" id="sosResult" aria-live="polite" hidden></div>
+        </section>
         <form id="profileForm" class="profile-grid">
           <label class="field field-wide">Location
             <select id="city" name="city" required><option value="" selected disabled>Choose your city</option><option value="Bengaluru">Bengaluru</option><option value="Mumbai">Mumbai</option><option value="Delhi">Delhi</option><option value="Hyderabad">Hyderabad</option><option value="Chennai">Chennai</option><option value="Pune">Pune</option><option value="Kolkata">Kolkata</option><option value="Jaipur">Jaipur</option><option value="Goa">Goa</option><option value="Ahmedabad">Ahmedabad</option></select>
