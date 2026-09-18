@@ -130,3 +130,15 @@ html[data-theme="dark"] .match{background:#1b5a43;color:#dcf8e8}
 html[data-theme="dark"] .why-plant{background:#1a503d;color:#dcf8e8;border-color:#4e8d70}
 html[data-theme="dark"] .ai-dialog-close{background:#1b4a3b;color:var(--ink)}
 html[data-theme="dark"] .timeline-dot{box-shadow:0 0 0 4px #102923}
+
+/* Phone-width guardrails: prevent a long label or grid child from widening the page. */
+html,body,#root,.legacy-root{max-width:100%;overflow-x:hidden}
+@media(max-width:580px){
+  .topbar,.shell,.workspace,.panel,.panel-heading,.balcony-scan-card,.sos-card,.trip-card,.results-header,.foster-card,.ai-dialog{max-width:100%;min-width:0}
+  .topbar{width:100%}
+  .top-actions,.top-actions .button,.step,.panel-heading>*,.scan-copy,.sos-heading,.sos-form,.profile-grid,.plant-card,.trip-layout>*,.passport-section>*,.foster-card>*{min-width:0}
+  .top-actions{max-width:calc(100% - 112px)}
+  .top-actions .button{white-space:nowrap}
+  input,select,textarea,button{max-width:100%}
+  .scan-result,.assessment,.timeline-content,.passport-line>*{min-width:0;overflow-wrap:anywhere}
+}
