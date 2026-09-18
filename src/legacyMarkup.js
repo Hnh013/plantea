@@ -15,17 +15,17 @@ const legacyMarkup = String.raw`
   <main id="top">
     <section class="intro shell">
       <div>
-        <p class="eyebrow">TRAVEL CARE PLANNER</p>
-        <h1>Leave town.<br><span>Keep every leaf happy.</span></h1>
+        <p class="eyebrow">EVERYDAY PLANT CARE</p>
+        <h1>Help your leafy kids<br><span>stay longer & healthier.</span></h1>
       </div>
-      <p class="intro-copy">Build your balcony profile, choose your plants, and get a clear care plan for the days you’re away.</p>
+      <p class="intro-copy">Understand your balcony, build a happier garden, and get calm, practical guidance for healthier plants—at home or while you’re away.</p>
     </section>
 
     <div class="shell workspace">
       <nav class="stepper" aria-label="Planner sections">
         <button class="step active" data-step="1"><span>⌂</span><b>Profile</b></button>
         <button class="step" data-step="2"><span>♧</span><b>Plants & Garden</b></button>
-        <button class="step" data-step="3"><span>✈</span><b>Trips</b></button>
+        <button class="step" data-step="3"><span>✈</span><b>Trips & time away</b></button>
         <button class="step" data-step="4"><span>✓</span><b>Care plan</b></button>
       </nav>
 
@@ -68,7 +68,7 @@ const legacyMarkup = String.raw`
           <label class="field">Maintenance style
             <select id="maintenance"><option value="low">Keep it easy</option><option value="medium" selected>A little weekly care</option><option value="high">Happy to fuss over plants</option></select>
           </label>
-          <div class="form-actions field-wide"><span>Your profile stays in this browser.</span><button class="button button-primary" type="submit">Find my plants <span>→</span></button></div>
+          <div class="form-actions field-wide"><span>Your profile stays in this browser.</span><button class="button button-primary" type="submit">Find my best matches <span>→</span></button></div>
         </form>
       </section>
 
@@ -79,35 +79,35 @@ const legacyMarkup = String.raw`
         </div>
         <div id="recommendations" class="plant-grid"></div>
         <button class="explore-toggle" id="exploreToggle" type="button">Explore all 17 plants ↓</button>
-        <div id="gardenEmpty" class="empty-state"><span>↳</span><div><b>Your garden is empty</b><p>Add at least one plant to make a travel plan.</p></div></div>
-        <div class="panel-footer"><button class="button button-ghost" data-menu="1">Edit profile</button><button class="button button-primary" id="gardenNext" disabled>Plan a trip <span>→</span></button></div>
+        <div id="gardenEmpty" class="empty-state"><span>↳</span><div><b>Your garden is empty</b><p>Add a plant to start building your everyday care space.</p></div></div>
+        <div class="panel-footer"><button class="button button-ghost" data-menu="1">Edit profile</button><button class="button button-primary" id="gardenNext" disabled>Plan time away <span>→</span></button></div>
       </section>
 
       <section class="panel" data-panel="3">
         <div class="panel-heading">
-          <div><p class="section-kicker">TRIP PLANNER</p><h2>When will you be away?</h2></div>
-          <p>We count full calendar days and build care around each plant’s watering rhythm.</p>
+          <div><p class="section-kicker">TIME-AWAY PLANNER</p><h2>Will your routine change soon?</h2></div>
+          <p>Optionally add dates and we’ll build a simple care rhythm around each plant’s watering needs.</p>
         </div>
-        <div id="tripPrereq" class="empty-state prerequisite" hidden><span>!</span><div><b>Add a plant before planning a trip</b><p>Open My Garden, choose at least one plant, then return here.</p></div><button class="button button-secondary" type="button" data-menu="2">Open My Garden</button></div>
+        <div id="tripPrereq" class="empty-state prerequisite" hidden><span>!</span><div><b>Add a plant before planning time away</b><p>Open My Garden, choose at least one plant, then return here.</p></div><button class="button button-secondary" type="button" data-menu="2">Open My Garden</button></div>
         <div class="trip-layout">
           <form id="tripForm" class="trip-card">
             <label class="field">Leave on<input id="departure" type="date" required></label>
             <div class="trip-line" aria-hidden="true"><span></span><i>✈</i><span></span></div>
             <label class="field">Return on<input id="returnDate" type="date" required></label>
             <p class="date-error" id="dateError" role="alert"></p>
-            <div class="duration-readout"><span id="durationValue">—</span><div><b>days away</b><small id="durationNote">Choose both dates</small></div></div>
-            <button class="button button-primary button-full" id="buildPlanButton" type="submit">Build my care plan <span>→</span></button>
+            <div class="duration-readout"><span id="durationValue">—</span><div><b>days to plan for</b><small id="durationNote">Choose both dates</small></div></div>
+            <button class="button button-primary button-full" id="buildPlanButton" type="submit">Build my care rhythm <span>→</span></button>
           </form>
-          <aside class="trip-garden"><p class="section-kicker">TRAVELLING GARDEN</p><div id="tripPlants"></div><div class="trip-tip"><b>Small prep, big difference.</b><p>A deep water and a shadier spot can safely add a couple of unattended days for many plants.</p></div></aside>
+          <aside class="trip-garden"><p class="section-kicker">YOUR GARDEN, IN RHYTHM</p><div id="tripPlants"></div><div class="trip-tip"><b>Small habits, big difference.</b><p>A deep water and a shadier spot can help plants stay steady when your routine changes.</p></div></aside>
         </div>
         <div class="panel-footer"><button class="button button-ghost" data-menu="2">Open My Garden</button></div>
       </section>
 
       <section class="panel" data-panel="4">
-        <div id="carePlanEmpty" class="empty-state care-plan-empty"><span>✦</span><div><b>No care plan yet</b><p>Choose plants and add travel dates to generate your first plan.</p></div><button class="button button-primary" type="button" data-menu="3">Plan a trip</button></div>
+        <div id="carePlanEmpty" class="empty-state care-plan-empty"><span>✦</span><div><b>No care rhythm yet</b><p>Choose plants and optionally add dates to generate a simple care rhythm.</p></div><button class="button button-primary" type="button" data-menu="3">Plan time away</button></div>
         <div class="results-header">
-          <div><p class="section-kicker">CARE PLAN</p><h2>Your garden has a plan.</h2><p id="tripSummary"></p></div>
-          <div class="readiness"><span id="readinessScore">0%</span><small>trip ready</small></div>
+          <div><p class="section-kicker">CARE RHYTHM</p><h2>Your garden has a plan.</h2><p id="tripSummary"></p></div>
+          <div class="readiness"><span id="readinessScore">0%</span><small>care ready</small></div>
         </div>
         <div id="assessmentSummary" class="summary-strip"></div>
         <section class="result-section"><div class="section-title-row"><div><p class="section-kicker">SURVIVAL ASSESSMENT</p><h3>Who needs what?</h3></div><span class="rule-note">Based on watering cadence + prep buffer</span></div><div id="assessments" class="assessment-list"></div></section>
@@ -117,11 +117,11 @@ const legacyMarkup = String.raw`
           <div class="passport" id="passport"><div class="passport-top"><span>PLANTSTAY / CARE PASS</span><span id="passportDates"></span></div><h4 id="passportTitle"></h4><div id="passportBody"></div><p class="passport-footer">Thank you for keeping the little jungle alive ♡</p></div>
         </section>
         <section class="foster-card"><div class="foster-intro"><span class="foster-icon">⌂</span><div><p class="section-kicker">NEED A HAND?</p><h3>Choose a care arrangement</h3><p>This is a planning aid—not a sitter marketplace. Share your passport with someone you trust.</p></div></div><div class="foster-options"><button class="foster-option active" data-foster="Home visit"><span>01</span><div><b>Trusted home visit</b><small>Best when moving pots is difficult</small></div><i>✓</i></button><button class="foster-option" data-foster="Temporary boarding"><span>02</span><div><b>Temporary plant boarding</b><small>Best for a small, portable garden</small></div><i>✓</i></button></div></section>
-        <div class="panel-footer final-footer"><button class="button button-ghost" data-menu="3">Change trip dates</button><button class="button button-secondary" id="startOver">Reset guest profile</button></div>
+        <div class="panel-footer final-footer"><button class="button button-ghost" data-menu="3">Change dates</button><button class="button button-secondary" id="startOver">Reset guest profile</button></div>
       </section>
     </div>
   </main>
-  <footer><span>PlantStay</span><p>Calm trips. Happier homecomings.</p><small>Built for planning—not professional horticultural advice.</small></footer>
+  <footer><span>PlantStay</span><p>Healthier plants. Calmer routines.</p><small>Built for everyday guidance—not professional horticultural advice.</small></footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
 
