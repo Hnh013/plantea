@@ -13,3 +13,11 @@
 body,button,input,select,textarea{font-family:"Nunito Sans",sans-serif}.brand,.intro h1,.panel-heading h2,.results-header h2,.section-title-row h3,.passport h4,.scan-copy h3,.sos-heading h3,.care-plan-empty h3{font-family:"Nunito Sans",sans-serif;letter-spacing:-.025em}.field,.button,.step b,.plant-card h3,.assessment-plant,.foster-option b{font-family:"Nunito Sans",sans-serif}
 @media(max-width:860px){.sos-shortcut{display:inline-flex}}
 @media(max-width:580px){.sos-shortcut{display:inline-flex;padding:9px 10px}}
+/* gentle color lift */
+:root{--paper:#f8faf1;--green:#367b55;--lime:#c9f47a;--line:#d5e1d0;--shadow:0 18px 50px rgba(47,111,79,.12)}
+.topbar{background:rgba(248,250,241,.94)}
+.button-primary{background:linear-gradient(135deg,#183027,#367b55)}
+.button-secondary{background:#fffdf5;border-color:#c5d8bf}
+.match{background:#effbd2;color:#367b55}
+.panel{box-shadow:0 20px 60px rgba(47,111,79,.12)}
+@media(max-width:580px){.topbar{height:auto;min-height:66px;padding-top:9px;padding-bottom:9px}.intro-copy{max-width:none}.panel-heading h2{font-size:30px}}
