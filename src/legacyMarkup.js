@@ -7,6 +7,7 @@ const legacyMarkup = String.raw`
     <div class="top-actions">
       <span class="anonymous-chip" id="anonymousChip">Guest gardener</span>
       <button class="button button-secondary garden-shortcut" id="gardenShortcut" type="button">My Garden <b id="headerGardenCount">0</b></button>
+      <button class="button button-secondary sos-shortcut" id="sosShortcut" type="button">Plant SOS <span>✦</span></button>
       <button class="button button-secondary" id="demoButton" type="button">Load demo trip</button>
     </div>
   </header>

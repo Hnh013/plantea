@@ -56,6 +56,7 @@ $('#sosPhoto').addEventListener('change',e=>{const file=e.target.files?.[0];if(!
 $('#tripForm').addEventListener('submit',e=>{e.preventDefault();if(!state.selected.length){toast('Add at least one plant first');showStep(2);return}updateDuration();if(state.duration<=0)return;state.departure=$('#departure').value;state.returnDate=$('#returnDate').value;buildResults()});
 $$('.step,[data-menu]').forEach(b=>b.addEventListener('click',()=>showStep(+(b.dataset.step||b.dataset.menu))));
 $('#gardenShortcut').addEventListener('click',()=>showStep(2));
+$('#sosShortcut').addEventListener('click',()=>{showStep(1);setTimeout(()=>$('#sosTitle')?.scrollIntoView({behavior:'smooth',block:'center'}),80)});
 $('#exploreToggle').addEventListener('click',()=>{state.showAll=!state.showAll;renderPlants();save()});
 $$('.foster-option').forEach(b=>b.addEventListener('click',()=>{$$('.foster-option').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.foster=b.dataset.foster;renderPassport();save()}));
 $('#copyPassport').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(passportText());$('#copyStatus').textContent='Copied to clipboard';toast('Care brief copied')}catch{$('#copyStatus').textContent='Select and copy the passport text manually.'}});
