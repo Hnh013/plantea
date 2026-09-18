@@ -8,7 +8,6 @@ const legacyMarkup = String.raw`
       <span class="anonymous-chip" id="anonymousChip">Guest gardener</span>
       <button class="button button-secondary garden-shortcut" id="gardenShortcut" type="button">My Garden <b id="headerGardenCount">0</b></button>
       <button class="button button-secondary sos-shortcut" id="sosShortcut" type="button">Plant SOS <span>✦</span></button>
-      <button class="button button-secondary" id="demoButton" type="button">Load demo trip</button>
     </div>
   </header>
 
@@ -113,7 +112,7 @@ const legacyMarkup = String.raw`
         <section class="result-section"><div class="section-title-row"><div><p class="section-kicker">SURVIVAL ASSESSMENT</p><h3>Who needs what?</h3></div><span class="rule-note">Based on watering cadence + prep buffer</span></div><div id="assessments" class="assessment-list"></div></section>
         <section class="result-section timeline-section"><div class="section-title-row"><div><p class="section-kicker">CARE TIMELINE</p><h3>What happens when</h3></div></div><div id="timeline" class="timeline"></div></section>
         <section class="result-section passport-section">
-          <div class="passport-copy"><p class="section-kicker">PLANT PASSPORT</p><h3>A simple brief for your helper</h3><p>Only the essentials: where the plants are, when to visit, and what to do.</p><button id="copyPassport" class="button button-dark">Copy care brief <span>↗</span></button><span id="copyStatus" class="copy-status" aria-live="polite"></span></div>
+          <div class="passport-copy"><p class="section-kicker">PLANT PASSPORT</p><h3>A simple brief for your helper</h3><p>Only the essentials: where the plants are, when to visit, and what to do.</p><div class="passport-actions"><button id="polishPassport" class="button button-secondary" type="button">Polish with AI <span>✦</span></button><button id="copyPassport" class="button button-dark" type="button">Copy care brief <span>↗</span></button></div><span id="copyStatus" class="copy-status" aria-live="polite"></span></div>
           <div class="passport" id="passport"><div class="passport-top"><span>PLANTSTAY / CARE PASS</span><span id="passportDates"></span></div><h4 id="passportTitle"></h4><div id="passportBody"></div><p class="passport-footer">Thank you for keeping the little jungle alive ♡</p></div>
         </section>
         <section class="foster-card"><div class="foster-intro"><span class="foster-icon">⌂</span><div><p class="section-kicker">NEED A HAND?</p><h3>Choose a care arrangement</h3><p>This is a planning aid—not a sitter marketplace. Share your passport with someone you trust.</p></div></div><div class="foster-options"><button class="foster-option active" data-foster="Home visit"><span>01</span><div><b>Trusted home visit</b><small>Best when moving pots is difficult</small></div><i>✓</i></button><button class="foster-option" data-foster="Temporary boarding"><span>02</span><div><b>Temporary plant boarding</b><small>Best for a small, portable garden</small></div><i>✓</i></button></div></section>
@@ -123,6 +122,7 @@ const legacyMarkup = String.raw`
   </main>
   <footer><span>PlantStay</span><p>Healthier plants. Calmer routines.</p><small>Built for everyday guidance—not professional horticultural advice.</small></footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="ai-overlay" id="aiOverlay" hidden><button class="ai-overlay-backdrop" type="button" data-close-ai aria-label="Close AI explanation"></button><section class="ai-dialog" role="dialog" aria-modal="true" aria-labelledby="aiDialogTitle"><button class="ai-dialog-close" type="button" data-close-ai aria-label="Close">×</button><p class="section-kicker" id="aiDialogKicker">PLANTSTAY AI</p><h3 id="aiDialogTitle">A little plant insight</h3><div id="aiDialogBody" class="ai-dialog-body" aria-live="polite"></div><div class="ai-dialog-actions"><button class="button button-primary" type="button" data-close-ai>Done</button></div></section></div>
   <script src="app.js"></script>
 
 `;

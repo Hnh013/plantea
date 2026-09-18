@@ -1,4 +1,4 @@
-import { analyzeBalconyWithGemini, analyzePlantSosWithGemini } from './gemini.js';
+import { analyzeBalconyWithGemini, analyzePlantSosWithGemini, explainPlantWithGemini, polishPassportWithGemini } from './gemini.js';
 
 const allowedMimeTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
@@ -39,17 +39,22 @@ export function apiMiddleware() {
         if (request.method !== 'POST') return send(response, 405, { error: 'POST required' });
         try {
           const body = await readJson(request);
-          const image = imageFrom(body);
-          const result = request.url === '/api/analyze-balcony'
-            ? await analyzeBalconyWithGemini({ imageBase64: image.data, mimeType: image.mimeType, city: body.city, profile: body.profile })
-            : request.url === '/api/analyze-plant-sos'
-              ? await analyzePlantSosWithGemini({ imageBase64: image.data, mimeType: image.mimeType, city: body.city, notes: body.notes })
-              : null;
+          let result = null;
+          if (request.url === '/api/explain-plant') {
+            result = await explainPlantWithGemini({ plant: body.plant, profile: body.profile, score: body.score });
+          } else if (request.url === '/api/polish-passport') {
+            result = await polishPassportWithGemini({ brief: body.brief, city: body.city });
+          } else if (request.url === '/api/analyze-balcony' || request.url === '/api/analyze-plant-sos') {
+            const image = imageFrom(body);
+            result = request.url === '/api/analyze-balcony'
+              ? await analyzeBalconyWithGemini({ imageBase64: image.data, mimeType: image.mimeType, city: body.city, profile: body.profile })
+              : await analyzePlantSosWithGemini({ imageBase64: image.data, mimeType: image.mimeType, city: body.city, notes: body.notes });
+          }
           if (!result) return next();
           return send(response, 200, { ...result, source: 'gemini', model: 'gemini-flash-latest' });
         } catch (error) {
           const message = error?.message === 'GEMINI_API_KEY is not configured' ? error.message : 'Gemini analysis is temporarily unavailable.';
-          return send(response, message.includes('configured') ? 503 : 502, { error: message });
+          return send(response, message.includes('configured') ? 503 : 502, { error: message, detail: process.env.NODE_ENV === 'production' ? undefined : error?.message });
         }
       });
     },

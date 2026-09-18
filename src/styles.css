@@ -27,8 +27,8 @@ body,button,input,select,textarea{font-family:"Nunito Sans",sans-serif}.brand,.i
   .brand{font-size:18px;white-space:nowrap}.brand-mark{width:28px;height:28px;font-size:20px}
   .top-actions{gap:5px;flex-wrap:wrap;justify-content:flex-end}.top-actions .button{font-size:11px;padding:8px 9px;gap:4px}
   .intro{padding:28px 0 20px;display:block}.intro h1{font-size:39px}.intro-copy{font-size:15px;margin-top:16px}
-  .workspace{display:block;padding-bottom:45px}.stepper{display:flex;gap:4px;overflow-x:auto;padding:8px 0;position:sticky;top:65px;z-index:10;background:var(--paper)}
-  .step{min-width:max-content;padding:10px 12px}.step b{display:block;font-size:12px}.step span{width:auto}
+  .workspace{display:block;padding-bottom:45px}.stepper{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;overflow:visible;padding:8px 0;position:static;background:var(--paper)}
+  .step{min-width:0;width:100%;padding:10px 9px;justify-content:flex-start}.step b{display:block;font-size:12px;white-space:normal}.step span{width:22px;flex:none}
   .panel{padding:18px 13px;border-radius:18px;min-height:0}.panel-heading{display:block;padding-bottom:18px;margin-bottom:20px}.panel-heading>p{font-size:14px}
   .profile-grid,.trip-layout,.passport-section,.foster-card{grid-template-columns:1fr}.choice-row{grid-template-columns:repeat(2,1fr)}
   .plant-grid{grid-template-columns:1fr}.plant-card{padding:16px}.plant-card.selected{padding:15px}.plant-top{padding-right:56px}
@@ -38,3 +38,5 @@ body,button,input,select,textarea{font-family:"Nunito Sans",sans-serif}.brand,.i
   .form-actions,.panel-footer{flex-direction:column;align-items:stretch;gap:10px}.form-actions .button,.panel-footer .button{width:100%}
   footer{display:block;padding:22px 14px}footer small{display:block;margin-top:8px}
 }
+.plant-actions{display:grid;grid-template-columns:1fr 1.2fr;gap:8px}.why-plant{border:1px solid #c8d9bd;background:#f4fae8;color:var(--green);border-radius:10px;padding:10px;font-weight:800}.why-plant span{color:#a66d17}.passport-actions{display:flex;flex-wrap:wrap;gap:8px}.overlay-open{overflow:hidden}.ai-overlay{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px}.ai-overlay-backdrop{position:absolute;inset:0;border:0;background:rgba(12,31,24,.58);backdrop-filter:blur(5px)}.ai-dialog{position:relative;width:min(560px,100%);max-height:min(720px,calc(100vh - 40px));overflow:auto;background:#fffef9;border:1px solid #d2dfc9;border-radius:24px;padding:30px;box-shadow:0 28px 90px rgba(10,35,25,.28);animation:rise .25s ease}.ai-dialog h3{font:800 28px/1.15 "Nunito Sans",sans-serif;margin:0 42px 14px 0}.ai-dialog-close{position:absolute;right:18px;top:16px;width:36px;height:36px;border:0;border-radius:50%;background:#edf4e8;font-size:25px;line-height:1}.ai-dialog-body{white-space:pre-wrap;color:var(--muted);font-size:16px;line-height:1.65}.ai-dialog-actions{display:flex;justify-content:flex-end;margin-top:24px}.ai-overlay[hidden]{display:none!important}
+@media(max-width:580px){.plant-actions{grid-template-columns:1fr}.passport-actions{display:grid}.ai-overlay{align-items:end;padding:0}.ai-dialog{width:100%;max-height:86vh;border-radius:24px 24px 0 0;padding:24px 18px calc(22px + env(safe-area-inset-bottom))}.ai-dialog-actions .button{width:100%}}
