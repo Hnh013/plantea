@@ -8,7 +8,6 @@ const legacyMarkup = String.raw`
       <span class="anonymous-chip" id="anonymousChip">Guest gardener</span>
       <button class="button button-secondary garden-shortcut" id="gardenShortcut" type="button">My Garden <b id="headerGardenCount">0</b></button>
       <button class="button button-secondary sos-shortcut" id="sosShortcut" type="button">Plant SOS <span>✦</span></button>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><span aria-hidden="true">☾</span><b>Dark</b></button>
     </div>
   </header>
 
