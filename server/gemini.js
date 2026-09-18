@@ -1,27 +1,30 @@
 const GEMINI_MODEL = "gemini-3.8-flash";
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
-const GEMINI_FALLBACK_MODEL = "gemini-flash-latest";
-const GEMINI_FALLBACK_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_FALLBACK_MODEL}:generateContent`;
+const GEMINI_MODEL_CHAIN = [
+  "gemini-3.8-flash",
+  "gemini-flash-lite-latest",
+  "gemini-2.5-flash-lite",
+  "gemini-3.1-flash-lite",
+  "gemini-3.5-flash-lite",
+  "gemini-3.6-flash",
+  "gemini-3.7-flash",
+  "gemini-flash-latest",
+];
 
-async function fetchGemini(body, apiKey, endpoint = GEMINI_ENDPOINT) {
-  let response;
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    response = await fetch(endpoint, {
+async function fetchWithFallback(body, apiKey) {
+  let lastResponse;
+  for (const model of GEMINI_MODEL_CHAIN) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(50000),
+      signal: AbortSignal.timeout(30000),
     });
-    if (response.status !== 429 && response.status !== 500 && response.status !== 503) return response;
-    if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 900 * (attempt + 1)));
+    if (response.ok) return response;
+    lastResponse = response;
   }
-  return response;
-}
-
-async function fetchWithFallback(body, apiKey) {
-  const primary = await fetchGemini(body, apiKey);
-  if (![429, 500, 503].includes(primary.status)) return primary;
-  return fetchGemini(body, apiKey, GEMINI_FALLBACK_ENDPOINT);
+  return lastResponse;
 }
 
 export async function analyzeBalconyWithGemini({ imageBase64, mimeType, city, profile }) {
@@ -68,4 +71,4 @@ export async function analyzePlantSosWithGemini({ imageBase64, mimeType, city, n
   return JSON.parse(text);
 }
 
-export { GEMINI_MODEL, GEMINI_ENDPOINT, GEMINI_FALLBACK_MODEL, GEMINI_FALLBACK_ENDPOINT };
+export { GEMINI_MODEL, GEMINI_ENDPOINT, GEMINI_MODEL_CHAIN };
