@@ -3,7 +3,6 @@ const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models
 const GEMINI_MODEL_CHAIN = [
   "gemini-3.8-flash",
   "gemini-flash-lite-latest",
-  "gemini-2.5-flash-lite",
   "gemini-3.1-flash-lite",
   "gemini-3.5-flash-lite",
   "gemini-3.6-flash",
@@ -19,7 +18,7 @@ async function fetchWithFallback(body, apiKey) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(30000),
+      signal: AbortSignal.timeout(15000),
     });
     if (response.ok) return response;
     lastResponse = response;
