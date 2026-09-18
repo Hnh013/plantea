@@ -1,6 +1,6 @@
-const GEMINI_MODEL = "gemini-flash-latest";
+const GEMINI_MODEL = "gemini-3.8-flash";
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
-const GEMINI_FALLBACK_MODEL = "gemini-2.5-flash";
+const GEMINI_FALLBACK_MODEL = "gemini-flash-latest";
 const GEMINI_FALLBACK_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_FALLBACK_MODEL}:generateContent`;
 
 async function fetchGemini(body, apiKey, endpoint = GEMINI_ENDPOINT) {
