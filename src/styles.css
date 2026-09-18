@@ -21,3 +21,20 @@ body,button,input,select,textarea{font-family:"Nunito Sans",sans-serif}.brand,.i
 .match{background:#effbd2;color:#367b55}
 .panel{box-shadow:0 20px 60px rgba(47,111,79,.12)}
 @media(max-width:580px){.topbar{height:auto;min-height:66px;padding-top:9px;padding-bottom:9px}.intro-copy{max-width:none}.panel-heading h2{font-size:30px}}
+@media(max-width:580px){
+  .shell{width:calc(100% - 20px)}
+  .topbar{padding-left:10px;padding-right:10px;align-items:flex-start;gap:8px}
+  .brand{font-size:18px;white-space:nowrap}.brand-mark{width:28px;height:28px;font-size:20px}
+  .top-actions{gap:5px;flex-wrap:wrap;justify-content:flex-end}.top-actions .button{font-size:11px;padding:8px 9px;gap:4px}
+  .intro{padding:28px 0 20px;display:block}.intro h1{font-size:39px}.intro-copy{font-size:15px;margin-top:16px}
+  .workspace{display:block;padding-bottom:45px}.stepper{display:flex;gap:4px;overflow-x:auto;padding:8px 0;position:sticky;top:65px;z-index:10;background:var(--paper)}
+  .step{min-width:max-content;padding:10px 12px}.step b{display:block;font-size:12px}.step span{width:auto}
+  .panel{padding:18px 13px;border-radius:18px;min-height:0}.panel-heading{display:block;padding-bottom:18px;margin-bottom:20px}.panel-heading>p{font-size:14px}
+  .profile-grid,.trip-layout,.passport-section,.foster-card{grid-template-columns:1fr}.choice-row{grid-template-columns:repeat(2,1fr)}
+  .plant-grid{grid-template-columns:1fr}.plant-card{padding:16px}.plant-card.selected{padding:15px}.plant-top{padding-right:56px}
+  .assessment{grid-template-columns:1fr}.assessment p{grid-column:auto}.summary-strip{grid-template-columns:repeat(2,1fr)}
+  .results-header{padding:18px}.results-header h2{font-size:27px}.readiness{width:76px;height:76px}
+  .sos-heading{display:block}.sos-mark{display:none}.sos-form{grid-template-columns:1fr!important}.upload-control,.scan-button{width:100%}
+  .form-actions,.panel-footer{flex-direction:column;align-items:stretch;gap:10px}.form-actions .button,.panel-footer .button{width:100%}
+  footer{display:block;padding:22px 14px}footer small{display:block;margin-top:8px}
+}
